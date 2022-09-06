@@ -1,6 +1,3 @@
-#include <string>
-#include <fstream>
-
 using namespace std;
 
 string getArg(int i, char const* val_esperado, int argc, char const *argv[]){
