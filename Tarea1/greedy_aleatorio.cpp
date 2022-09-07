@@ -61,7 +61,7 @@ int main(int argc, char const *argv[]){
 	}
 	int M = omega[0].length();	//Longitud M de cada secuencia.
 
-	float th;	//Treshold.
+	float th;	//Threshold.
 	try{
 		th = stof(getArg("-th",argc,argv));
 	}catch(...){
