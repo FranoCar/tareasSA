@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string greedy_probabilista(vector<string> omega, int M, float th, float e){
+string greedy_probabilista(vector<string> omega, int M, float e){
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_real_distribution<> dis(0.0, 1.0);
@@ -79,7 +79,7 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
-	string solucion = greedy_probabilista(omega,M,th,e);
+	string solucion = greedy_probabilista(omega,M,e);
 	cout << "Solución: " << solucion << endl;
 	cout << "Valor objetivo: " << getValorObjetivo(omega,solucion,M,th) << endl;
 
