@@ -7,6 +7,8 @@
 
 using namespace std;
 
+
+
 int main(int argc, char const *argv[]){
 	//Nombre de la instancia a abrir.
 	string instancia = getArg("-i",argc,argv);

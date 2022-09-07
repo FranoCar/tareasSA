@@ -16,9 +16,7 @@ string getArg(char const* val_esperado, int argc, char const *argv[]){
 //Si no encuentra el archivo o hay un error retorna un vector vacío.
 vector<string> getData(string dir){
 	vector<string> data;
-	try{
-		ifstream input(dir);
-	}
+	ifstream input(dir);
 	if(input.is_open()){
 		string line;
 		while(getline(input,line)){
@@ -38,12 +36,12 @@ int hummingDist(string A, string B, int M){
 	}
 	return val;
 }
-// Función para obtener el valor objetivo del problema FFMS, recibe el arreglo, el string solución, la longitud M y el treshold th.
+// Función para obtener el valor objetivo del problema FFMS, recibe el arreglo, el string solución, la longitud M y el threshold th.
 int getValorObjetivo(vector<string> omega, string solucion,int M, float th){
 	int count = 0;
 	for(string s: omega){
 		int hd = hummingDist(s,solucion,M);
-		if( (float)hd/M >= th){
+		if((float)hd/M >= th){
 			count++;
 		}
 	}
