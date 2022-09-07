@@ -5,47 +5,9 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "funciones.h"
 
 using namespace std;
-
-string getArg(int i, char const* val_esperado, int argc, char const *argv[]){
-	string error_msg = 	"Uso correcto del programa:\n"
-						"./<programa> -i <instancia-problema> -th <treshold>\n\n"
-						"instancia-problema := uno de los archivos dentro de la carpeta 'dataset' \n"
-						"threshold := un valor de coma flotante entre 0 y 1\n";
-	string opcion;
-	int idx = i*2 + 1;
-	if(argc > idx+1 and strcmp(argv[idx], val_esperado) == 0){
-		opcion = argv[idx+1];
-	}else{
-		cout << error_msg << endl;
-	}
-	return opcion;
-
-}
-
-vector<string> getData(string dir){
-	vector<string> data;
-	ifstream input(dir);
-	if(input.is_open()){
-		string line;
-		while(getline(input,line)){
-			line.pop_back();
-			data.push_back(line);
-		}
-		input.close();
-	}
-	return data;
-}
-int hummingDist(string A, string B, int M){
-	int val = 0;
-	for(int i = 0; i < M; i++){
-		if (A[i] != B[i]){
-			val++;
-		}
-	}
-	return val;
-}
 
 string greedy_probabilista(vector<string> omega, int M, float th, float e){
 	random_device rd;
@@ -84,29 +46,42 @@ string greedy_probabilista(vector<string> omega, int M, float th, float e){
 }
 int main(int argc, char const *argv[]){
 	//Nombre de la instancia a abrir.
-	string instancia = getArg(0,"-i",argc,argv);
-	if (instancia.empty())
+	string instancia = getArg("-i",argc,argv);
+	if (instancia.empty()){
+		cout << "Entrada erronea o nula en argumento -i" << endl;
 		return 0;
-	//Treshold.
-	float th = stof(getArg(1,"-th",argc,argv));
+	}
+	instancia = "dataset/" + instancia + ".txt";
+
 	//Set de secuencias.
-	vector<string> omega; 
-	omega = getData("dataset/" + instancia + ".txt");
-	//Longitud M de cada secuencia.
-	int M = omega[0].length();
-	string solucion = greedy_probabilista(omega,M,th,0.1);
+	vector<string> omega = getData(instancia);
+	if(omega.empty()){
+		cout << "Archivo no se puede leer o no existe" << endl;
+		return 0;
+	}
+	int M = omega[0].length();	//Longitud M de cada secuencia.
 
-	cout << "Solución: ";
-	cout << solucion << endl;
-
-	int count = 0;
-	for(string s: omega){
-		int hd = hummingDist(s,solucion,M);
-		if( (float)hd/M >= th){
-			count++;
+	float th;	//Treshold.
+	try{
+		th = stof(getArg("-th",argc,argv));
+	}catch(...){
+		cout << "Entrada erronea o nula en argumento -th" << endl;
+		return 0;
+	}
+	string e_arg = getArg("-e",argc,argv);
+	float e = 0.1;
+	if(!e_arg.empty()){
+		try{
+			e = stof(e_arg);
+		}catch(...){
+			cout << "Entrada erronea en argumento -e" << endl;
+			return 0;
 		}
 	}
-	cout << count << endl;
+
+	string solucion = greedy_probabilista(omega,M,th,e);
+	cout << "Solución: " << solucion << endl;
+	cout << "Valor objetivo: " << getValorObjetivo(omega,solucion,M,th) << endl;
 
 	return 0;
 }
