@@ -66,18 +66,28 @@ int main(int argc, char const *argv[]){
 	}
 	int M = omega[0].length();	//Longitud M de cada secuencia.
 
-	float th;	//Threshold.
+	// Argumento obligatorio threshold.
+	float th;
 	try{
 		th = stof(getArg("-th",argc,argv));
+		if(th > 1 or th < 0){
+			cout << "Entrada erronea o nula en argumento -th" << endl;
+			return 0;
+		}
 	}catch(...){
 		cout << "Entrada erronea o nula en argumento -th" << endl;
 		return 0;
 	}
+	// Argumento opcional probabilidad epsilon
 	string e_arg = getArg("-e",argc,argv);
 	float e = 0.1;
 	if(!e_arg.empty()){
 		try{
 			e = stof(e_arg);
+			if(e > 1 or e < 0){
+				cout << "Entrada erronea en argumento -e" << endl;
+				return 0;
+			}
 		}catch(...){
 			cout << "Entrada erronea en argumento -e" << endl;
 			return 0;
