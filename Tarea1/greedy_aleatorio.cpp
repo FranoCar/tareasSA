@@ -37,7 +37,8 @@ string greedy_probabilista(vector<string> omega, int M, float e){
 			if(frecuencia[pair.first] < frecuencia[minChar])
 				minChar = pair.first;
 		}
-
+		// Se selecciona como siguiente en la solución la opción greedy con probabilidad 1-e.
+		// Se selecciona una opción aleatoria con una probabilidad e.
 		double p = dis(gen);
 		uniform_int_distribution<size_t> r_pick(0,alfabeto.size()-1);
 		if(p < e){
