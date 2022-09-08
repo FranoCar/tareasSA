@@ -5,18 +5,24 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <chrono>
 #include "funciones.h"
 
 using namespace std;
 
 string greedy_probabilista(vector<string> omega, int M, float e){
+	// Caracteres posibles, específicos a las instancias a usar.
+	vector<char> alfabeto{'A','C','G','T'}; 
+
+	// Estructuras para generar números aleatorios
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_real_distribution<> dis(0.0, 1.0);
-	string solucion;
-	for(int i = 0; i < M; i++){
-		map<char, int> frecuencia;
-		// Búsqueda de caracter menos frecuente.
+
+	string solucion; // Solución inicialmente vacía
+	for(int i = 0; i < M; i++){		//Iteramos por posición desde 0 a M.
+		map<char, int> frecuencia;	// Mapa para comparar frecuencia de caracteres.
+		// Conteo de frecuencias de caracteres.
 		for(string s : omega){
 			char c = s.at(i);
 			if(frecuencia.find(c) == frecuencia.end()){
@@ -25,11 +31,9 @@ string greedy_probabilista(vector<string> omega, int M, float e){
 				frecuencia[c] = frecuencia[c] + 1;
 			}
 		}
-
+		// Búsqueda de caracter menos frecuente.
 		char minChar = frecuencia.begin()->first;
-		vector<char> alfabeto;
 		for(auto const& pair : frecuencia){
-			alfabeto.push_back(pair.first);
 			if(frecuencia[pair.first] < frecuencia[minChar])
 				minChar = pair.first;
 		}
@@ -79,9 +83,17 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
-	string solucion = greedy_probabilista(omega,M,e);
-	cout << "Solución: " << solucion << endl;
-	cout << "Valor objetivo: " << getValorObjetivo(omega,solucion,M,th) << endl;
+	auto start = chrono::high_resolution_clock::now();
+	int valorObj = getValorObjetivo(omega,greedy_probabilista(omega,M,e),M,th);
+	auto stop = chrono::high_resolution_clock::now();
+
+	int N = omega.size();
+	cout << endl;
+	cout << "Calidad de solución: " << valorObj << "/" << N << " = " << (float)valorObj/N << endl;
+	cout << "(Valor objetivo / Total secuencias)" << endl;
+	float duration = (float)chrono::duration_cast<chrono::microseconds>(stop - start).count()/1000;
+	cout << "Duración: " << duration << "(ms)" << endl;
+	cout << endl;
 
 	return 0;
 }
