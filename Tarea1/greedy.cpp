@@ -4,12 +4,14 @@
 #include <cstring>
 #include <vector>
 #include <map>
+#include <chrono>
 #include "funciones.h"
 
 using namespace std;
 
-string greedy(vector<string> omega, int M, int th){
+string greedy(vector<string> omega, int M, float th){
 	string solucion;
+	int count[M] = {0};
 
 	for(int i = 0; i < M; i++){
 		map<char, int> frecuencia;
@@ -31,9 +33,24 @@ string greedy(vector<string> omega, int M, int th){
 
 		int logrado = 0;
 		
-		
+		for(auto pair = frecuencia.begin(); pair != frecuencia.end() && logrado == 0; pair++){
+			for(int j = 0; j < omega.size(); j++){
+				if(omega[j].at(i) != pair->first && count[j] == (int)(th*M)-1){
+					logrado = 1;
+					solucion.push_back(pair->first);
+					break;
+				}
+			}
+		}
+
 		if (logrado == 0)
 			solucion.push_back(minChar);
+
+		for(int j = 0; j < omega.size(); j++){
+			if(omega[j].at(i) != solucion.at(i)){
+				count[j]++;
+			}			
+		}	
 	}
 	return solucion;
 }
@@ -59,12 +76,28 @@ int main(int argc, char const *argv[]){
 	float th;	//Threshold.
 	try{
 		th = stof(getArg("-th",argc,argv));
+		if(th > 1 || th < 0){
+			cout << "Entrada erronea o nula en argumento -th" << endl;
+			return 0;
+		}
 	}catch(...){
 		cout << "Entrada erronea o nula en argumento -th" << endl;
 		return 0;
 	}
-	
+
 	string solucion = greedy(omega, M, th);
+
+	auto start = chrono::high_resolution_clock::now();
+	int valorObj = getValorObjetivo(omega,greedy(omega,M,th),M,th);
+	auto stop = chrono::high_resolution_clock::now();
+
+	int N = omega.size();
+	cout << endl;
+	cout << "Calidad de solución: " << valorObj << "/" << N << " = " << (float)valorObj/N << endl;
+	cout << "(Valor objetivo / Total secuencias)" << endl;
+	float duration = (float)chrono::duration_cast<chrono::microseconds>(stop - start).count()/1000;
+	cout << "Duración: " << duration << "(ms)" << endl;
+	cout << endl;
 
     return 0;
 }
