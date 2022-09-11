@@ -8,6 +8,7 @@ admin@admin:~$ ./greedy.out -i XXX-YYY-ZZZ.txt -th 0.75
 ```
 
 Donde:
+
 **-i XXX-YYY-ZZZ.txt**: Hace un llamado a la instancia del problema XXX-YYY-ZZZ.txt (ej: 100-300-001.txt)
 
 **-th 0.75**: Indica por consola cuál es el threshold para dicha ejecución del problema (en el ejemplo, threshold = 0.75)
@@ -21,6 +22,7 @@ admin@admin:~$ ./gr_aleatorio.out -i XXX-YYY-ZZZ.txt -th 0.75 -e 0.7
 ```
 
 Donde:
+
 **-i XXX-YYY-ZZZ.txt**: Hace un llamado a la instancia del problema XXX-YYY-ZZZ.txt (ej: 100-300-001.txt)
 
 **-th 0.75**: Indica por consola cuál es el threshold para dicha ejecución del problema (en el ejemplo, threshold = 0.75)
