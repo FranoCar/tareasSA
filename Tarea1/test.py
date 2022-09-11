@@ -30,6 +30,6 @@ def main():
 			print(f'media: {"%.3f" % np.mean(values)}')
 			print(f'stdev: {"%.3f" % np.std(values)}')
 			print()
-			
-if __name__ = "__main__":
+
+if __name__ == "__main__":
 	main()
