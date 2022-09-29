@@ -109,7 +109,8 @@ string GRASP(vector<string> omega, int M, float e, float th, float time){
     auto start = chrono::high_resolution_clock::now();
     string solucion = "";
     float tiempo_segundos = 0;
-
+	float tiempo_encontrado = 0;
+	int N = omega.size();
     while(tiempo_segundos < time){
         tiempo_segundos = (float) chrono::duration_cast<chrono::milliseconds>(
                                 chrono::high_resolution_clock::now() - start
@@ -121,13 +122,16 @@ string GRASP(vector<string> omega, int M, float e, float th, float time){
         if(solucion == "" || (getValorObjetivo(omega,solucion,M,th) < getValorObjetivo(omega,nueva,M,th)) ){
             solucion = nueva;
             if(solucion != ""){
-                cout << "Nueva calidad:" << getValorObjetivo(omega,nueva,M,th) << endl;
-                cout << "Encontrado en:" << (float) chrono::duration_cast<chrono::milliseconds>(
-                                chrono::high_resolution_clock::now() - start
-                            ).count()/1000 /* Error 5: 1000 */ << "s" << endl;
+				tiempo_encontrado = (float) chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - start).count()/1000;
+                cout << "Nueva calidad: " << (float)getValorObjetivo(omega,nueva,M,th)/N << endl;
+                cout << "Encontrado en: " << tiempo_encontrado /* Error 5: 1000 */ << "(s)" << endl;
+				cout << "-----" << endl;
             }
         }
+		
     }
+	cout << "Calidad final: " << (float)getValorObjetivo(omega,solucion,M,th)/N << endl;
+	cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
 	// Error 4: return 0; <- return 0??? en una función que retorna strings?
 	// Solución 4 --
 	return solucion;
@@ -196,13 +200,9 @@ int main(int argc, char const *argv[]){
 	auto start = chrono::high_resolution_clock::now();
 	int valorObj = getValorObjetivo(omega,GRASP(omega,M,e,th,t),M,th);
 	auto stop = chrono::high_resolution_clock::now();
-	cerr << "- Lo logró?\n- Lo logró";
 	int N = omega.size();
 	cout << endl;
-	cout << "Calidad de solución: " << valorObj << "/" << N << " = " << (float)valorObj/N << endl;
-	cout << "(Valor objetivo / Total secuencias)" << endl;
 	float duration = (float)chrono::duration_cast<chrono::microseconds>(stop - start).count()/1000;
-	cout << "Duración: " << duration << "(ms)" << endl;
 	cout << endl;
 
 	return 0;
