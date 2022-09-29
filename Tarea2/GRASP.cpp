@@ -10,7 +10,6 @@
 
 using namespace std;
 
-// what a pretty neighborhood, its the neighborhood of chavo
 
 vector<string> vecindad(string sol){
     // Caracteres posibles, específicos a las instancias a usar.
@@ -20,15 +19,20 @@ vector<string> vecindad(string sol){
     //iterar en la solución
      for (int i = 0; i < sol.length(); i++){
         //Agregar los 3 vecinos posibles al arreglo
-        string vecino = sol;
+        // Error 2: string vecino = sol; <- tiene que estar en el for de abajo.
         for(char letra : alfabeto){
+        	// Sólución 2 ------
+        	string vecino = sol;
+        	// -----------------
             if(letra != sol[i]){
                 vecino[i] = letra;
             }
+            // Solución 1 ------------
+         	retorno.push_back(vecino);
+         	// -----------------------   
         }
-        retorno.push_back(vecino);
+        // ERROR 1: retorno.push_back(vecino); <- tiene que estar dentro del for de arriba
      }
-
     return retorno;
 }
 
@@ -42,10 +46,21 @@ string siguiente_vecino(vector<string> omega, vector<string> vecindad, string so
 }
 
 string busqueda_local(vector<string> omega, string sol, int M, float th){
-    vector<string> vecinos = vecindad(sol);
-    string esta = siguiente_vecino(omega,vecinos,sol,M,th);
-    while(esta != ""){
-        string esta = siguiente_vecino(omega,vecinos,sol,M,th); //DE AQUI NO ESTA SALIENDO
+    vector<string> vecinos = vecindad(sol); 				// Se genera la vecindad de la solución inicial.
+    string siguiente = siguiente_vecino(omega,vecinos,sol,M,th);	// Se obtiene la primera mejor opción en la vecindad.
+	string esta = sol; // Se le da valor inicial sol para evitar retornar vacío.
+	// Error 6: siguiente siempre termina siendo vacío al final.
+    while(siguiente != ""){
+        string siguiente = siguiente_vecino(omega,vecinos,esta,M,th); //DE AQUI NO siguiente SALIENDO
+		
+
+		if(siguiente != ""){	// Solución 6: usar un buffer en vez de solo una variable "esta"
+			esta = siguiente;
+			vecinos = vecindad(esta);
+		}else{
+			break;
+		}
+        // Error 3: No se está generando la vecindad nueva, si no usando la de la solución antigua.
     }
     return esta;
 }
@@ -98,25 +113,26 @@ string GRASP(vector<string> omega, int M, float e, float th, float time){
     while(tiempo_segundos < time){
         tiempo_segundos = (float) chrono::duration_cast<chrono::milliseconds>(
                                 chrono::high_resolution_clock::now() - start
-                            ).count()*1000;
+                            ).count()/1000; //Error 5: *1000;
         //Greedy aleatorizado
         string nueva = greedy_probabilista(omega,M,e);
-        cerr << "Saco greedy" << endl;
         //Busqueda local
         nueva = busqueda_local(omega,nueva,M,th);
-        cerr << "Saco busqueda local" << endl;
-        if(solucion == "" || (getValorObjetivo(omega,solucion,M,th) < getValorObjetivo(omega,nueva,M,th))){
+        if(solucion == "" || (getValorObjetivo(omega,solucion,M,th) < getValorObjetivo(omega,nueva,M,th)) ){
             solucion = nueva;
             if(solucion != ""){
                 cout << "Nueva calidad:" << getValorObjetivo(omega,nueva,M,th) << endl;
                 cout << "Encontrado en:" << (float) chrono::duration_cast<chrono::milliseconds>(
                                 chrono::high_resolution_clock::now() - start
-                            ).count()*1000 << "s" << endl;
+                            ).count()/1000 /* Error 5: 1000 */ << "s" << endl;
             }
         }
     }
-	// int valorObj = getValorObjetivo(omega,greedy_probabilista(omega,M,e),M,th);
-	return 0;    
+	// Error 4: return 0; <- return 0??? en una función que retorna strings?
+	// Solución 4 --
+	return solucion;
+	// -------------
+
 }
 
 int main(int argc, char const *argv[]){
@@ -180,7 +196,7 @@ int main(int argc, char const *argv[]){
 	auto start = chrono::high_resolution_clock::now();
 	int valorObj = getValorObjetivo(omega,GRASP(omega,M,e,th,t),M,th);
 	auto stop = chrono::high_resolution_clock::now();
-
+	cerr << "- Lo logró?\n- Lo logró";
 	int N = omega.size();
 	cout << endl;
 	cout << "Calidad de solución: " << valorObj << "/" << N << " = " << (float)valorObj/N << endl;
