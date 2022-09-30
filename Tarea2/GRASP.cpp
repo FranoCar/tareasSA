@@ -105,16 +105,24 @@ string greedy_probabilista(vector<string> omega, int M, float e){
 	return solucion;
 }
 
+// inline copia el contenido de la función donde es llamada en tiempo de compiĺación
+// así que estas funciones son solo para simplificar código.
+inline chrono::time_point<std::chrono::high_resolution_clock> now(){
+	return chrono::high_resolution_clock::now();
+}
+inline float gettimems(chrono::time_point<std::chrono::high_resolution_clock> start){
+	return (float)chrono::duration_cast<chrono::milliseconds>(
+						now() - start
+                            ).count();
+}
 string GRASP(vector<string> omega, int M, float e, float th, float time){
-    auto start = chrono::high_resolution_clock::now();
+    auto start = now();
     string solucion = "";
     float tiempo_segundos = 0;
 	float tiempo_encontrado = 0;
 	int N = omega.size();
     while(tiempo_segundos < time){
-        tiempo_segundos = (float) chrono::duration_cast<chrono::milliseconds>(
-                                chrono::high_resolution_clock::now() - start
-                            ).count()/1000; //Error 5: *1000;
+        tiempo_segundos = gettimems(start)/1000; //Error 5: *1000;
         //Greedy aleatorizado
         string nueva = greedy_probabilista(omega,M,e);
         //Busqueda local
@@ -122,13 +130,12 @@ string GRASP(vector<string> omega, int M, float e, float th, float time){
         if(solucion == "" || (getValorObjetivo(omega,solucion,M,th) < getValorObjetivo(omega,nueva,M,th)) ){
             solucion = nueva;
             if(solucion != ""){
-				tiempo_encontrado = (float) chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - start).count()/1000;
+				tiempo_encontrado = gettimems(start)/1000;
                 cout << "Nueva calidad: " << (float)getValorObjetivo(omega,nueva,M,th)/N << endl;
                 cout << "Encontrado en: " << tiempo_encontrado /* Error 5: 1000 */ << "(s)" << endl;
 				cout << "-----" << endl;
             }
         }
-		
     }
 	cout << "Calidad final: " << (float)getValorObjetivo(omega,solucion,M,th)/N << endl;
 	cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
@@ -197,13 +204,7 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
-	auto start = chrono::high_resolution_clock::now();
 	int valorObj = getValorObjetivo(omega,GRASP(omega,M,e,th,t),M,th);
-	auto stop = chrono::high_resolution_clock::now();
-	int N = omega.size();
-	cout << endl;
-	float duration = (float)chrono::duration_cast<chrono::microseconds>(stop - start).count()/1000;
-	cout << endl;
 
 	return 0;
 }
