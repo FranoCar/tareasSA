@@ -1,11 +1,3 @@
-#include <iostream>
-#include <string.h>
-#include <fstream>
-#include <random>
-#include <vector>
-#include <string>
-#include <map>
-#include <chrono>
 #include "funciones.h"
 
 using namespace std;
