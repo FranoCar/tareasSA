@@ -26,6 +26,9 @@ string GRASP(vector<string> omega, int M, float e, float th, float time){
             cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
 			cout << "-----" << endl;
         }
+        // Si se obtiene el máximo de calidad entonces se termina el algoritmo.
+        if(calidad_nueva/N == 1)  
+            break;
     }
 	cout << "Calidad final: " << (float)getValorObjetivo(omega,solucion,M,th)/N << endl;
 	cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
