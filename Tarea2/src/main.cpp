@@ -1,7 +1,7 @@
 #include "funciones.h"
 
 int main(int argc, char const *argv[]){
-	//Nombre de la instancia a abrir.
+	// Nombre de la instancia a abrir.
 	string instancia = getArg("-i",argc,argv);
 	if (instancia.empty()){
 		cout << "Entrada erronea o nula en argumento -i" << endl;
@@ -9,11 +9,11 @@ int main(int argc, char const *argv[]){
 	}
 	instancia = "dataset/" + instancia + ".txt";
 
-    string tiempo = getArg("-t",argc,argv);
-    float t;
+	// Tiempo en segundos para limitar la ejecución de GRASP.
+    float tiempo;
 	try{
-		t = stof(tiempo);
-		if(t <= 0){
+		tiempo = stof(getArg("-t",argc,argv));
+		if(tiempo <= 0){
 			cout << "Entrada erronea o nula en argumento -t" << endl;
 			return 0;
 		}
@@ -57,8 +57,8 @@ int main(int argc, char const *argv[]){
 			return 0;
 		}
 	}
-
-	int valorObj = getValorObjetivo(omega,GRASP(omega,M,e,th,t),M,th);
+	// Ejecución de GRASP con los argumentos obtenidos.
+	GRASP(omega,M,e,th,tiempo);
 
 	return 0;
 }
