@@ -17,7 +17,7 @@ Donde:
 
 **-i XXX-YYY-ZZZ.txt**: Se refiere a la instancia del problema XXX-YYY-ZZZ.txt en la carpeta `dataset` (ej: 100-300-001.txt)
 
-**-t 10**: Indica el tiempo de ejecución del problema (en el ejemplo, `threshold = 10 segundos`)
+**-t 10**: Indica el tiempo de ejecución del problema (en el ejemplo, `tiempo = 10 segundos`)
 
 **-th 0.75**: Indica cuál es el threshold para dicha ejecución del problema (en el ejemplo, `threshold = 0.75`)
 
