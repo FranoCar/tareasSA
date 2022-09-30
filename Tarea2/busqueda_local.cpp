@@ -38,18 +38,13 @@ string busqueda_local(vector<string> omega, string sol, int M, float th){
     vector<string> vecinos = vecindad(sol); 				// Se genera la vecindad de la solución inicial.
     string siguiente = siguiente_vecino(omega,vecinos,sol,M,th);	// Se obtiene la primera mejor opción en la vecindad.
 	string esta = sol; // Se le da valor inicial sol para evitar retornar vacío.
-	// Error 6: siguiente siempre termina siendo vacío al final.
-    while(siguiente != ""){
-        string siguiente = siguiente_vecino(omega,vecinos,esta,M,th); //DE AQUI NO siguiente SALIENDO
-		
+    while(!siguiente.empty()){
+        siguiente = siguiente_vecino(omega,vecinos,esta,M,th); //DE AQUI NO siguiente SALIENDO
 
-		if(siguiente != ""){	// Solución 6: usar un buffer en vez de solo una variable "esta"
+		if(!siguiente.empty()){
 			esta = siguiente;
 			vecinos = vecindad(esta);
-		}else{
-			break;
 		}
-        // Error 3: No se está generando la vecindad nueva, si no usando la de la solución antigua.
     }
     return esta;
 }
