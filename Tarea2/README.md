@@ -4,13 +4,13 @@
 Para compilar, usar el compilador de c++:
 
 ```console
-admin@admin:~$ g++ src/*.cpp -o GRASP
+admin@admin:~/tareasSA/Tarea2$ g++ src/*.cpp -o GRASP
 ```
 
 Para ejecutar, utilizar la siguiente sintaxis:
 
 ```console
-admin@admin:~$ ./GRASP -i XXX-YYY-ZZZ -t 10 -th 0.75 -e 0.2
+admin@admin:~/tareasSA/Tarea2$ ./GRASP -i XXX-YYY-ZZZ -t 10 -th 0.75 -e 0.2
 ```
 
 Donde:
