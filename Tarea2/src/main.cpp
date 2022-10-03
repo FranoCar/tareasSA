@@ -30,17 +30,20 @@ int main(int argc, char const *argv[]){
 	}
 	int M = omega[0].length();	//Longitud M de cada secuencia.
 
-	// Argumento obligatorio threshold.
-	float th;
-	try{
-		th = stof(getArg("-th",argc,argv));
-		if(th > 1 or th < 0){
+	// Argumento opcional threshold.
+	string th_arg = getArg("-th",argc,argv);
+	float th = 0.8;
+	if(!th_arg.empty()){
+		try{
+			th = stof(th_arg);
+			if(th > 1 or th < 0){
+				cout << "Entrada erronea o nula en argumento -th" << endl;
+				return 0;
+			}
+		}catch(...){
 			cout << "Entrada erronea o nula en argumento -th" << endl;
 			return 0;
 		}
-	}catch(...){
-		cout << "Entrada erronea o nula en argumento -th" << endl;
-		return 0;
 	}
 	// Argumento opcional probabilidad epsilon
 	string e_arg = getArg("-e",argc,argv);
