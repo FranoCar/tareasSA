@@ -19,13 +19,9 @@ Donde:
 
 **-t 10**: Indica el tiempo de ejecución del problema (en el ejemplo, `tiempo = 10 segundos`)
 
-**-th 0.75**: Indica cuál es el threshold para dicha ejecución del problema (en el ejemplo, `threshold = 0.75`). 
+**-th 0.75**: Indica cuál es el threshold para dicha ejecución del problema (en el ejemplo, `threshold = 0.75`), th tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defecto tiene un valor de 0.8.
 
-th tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defecto tiene un valor de 0.8.
-
-**-e 0.2**: Indica el valor epsilon que se escogerá para la aleatoreidad del problema (en el ejemplo, `epsilon = 0.2`).
-
-e tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defecto tiene un valor de 0.1.
+**-e 0.2**: Indica el valor epsilon que se escogerá para la aleatoreidad del problema (en el ejemplo, `epsilon = 0.2`), e tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defecto tiene un valor de 0.1.
 
 ## Archivos incluidos:
 - `funciones.cpp`: funciones generales compartido por varios algoritmos.
