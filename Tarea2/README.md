@@ -26,7 +26,7 @@ th tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defec
 e tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defecto tiene un valor de 0.1.
 
 ## Archivos incluidos:
-- `funciones.cpp`: funciones generales para el funcionamiento del programa.
+- `funciones.cpp`: funciones generales compartido por varios algoritmos.
 - `busqueda_local.cpp`: código fuente de la búsqueda local
 - `greedy_aleatorio.cpp`: código fuente de algoritmo greedy aleatorizado
 - `GRASP.cpp`: código fuente de algoritmo GRASP
