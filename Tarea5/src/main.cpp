@@ -1,4 +1,7 @@
 #include "funciones.h"
+#include "genetico.hpp"
+
+using namespace std;
 
 int main(int argc, char const *argv[]){
 	// Nombre de la instancia a abrir.
@@ -60,8 +63,8 @@ int main(int argc, char const *argv[]){
 			return 0;
 		}
 	}
-	// Ejecución de GRASP con los argumentos obtenidos.
-	GRASP(omega,M,e,th,tiempo);
+
+	AG(omega,M,100,e,th,tiempo);
 
 	return 0;
 }

@@ -33,11 +33,5 @@ int hummingDist(string A, string B, int M);
 
 int getValorObjetivo(vector<string> omega, string solucion,int M, float th);
 
-string greedy_probabilista(vector<string> omega, int M, float e);
-
-string busqueda_local(vector<string> omega, string sol, int M, float th);
-
-string GRASP(vector<string> omega, int M, float e, float th, float time);
-
 
 #endif
