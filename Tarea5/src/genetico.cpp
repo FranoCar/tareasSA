@@ -8,7 +8,7 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 	float tiempo_encontrado = 0;
 	bool newrecord = false;
 	// Generar Población
-	vector<string> poblacion = gen_poblacion(n_agentes);
+	vector<string> poblacion = gen_poblacion(n_agentes,M);
 	vector<int> fitness;
 	//Best so far
 	string solbf = poblacion[0];
@@ -55,5 +55,4 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 		}
 	}
 	return solbf;
-
 }

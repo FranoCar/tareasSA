@@ -3,7 +3,7 @@
 
 #include "funciones.h"
 
-vector<string> gen_poblacion(int n_agentes);
+vector<string> gen_poblacion(int n_agentes, int M);
 
 vector<string> seleccion(vector<string> poblacion,vector<int> fitness);
 
