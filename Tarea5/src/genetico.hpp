@@ -11,7 +11,7 @@ vector<string> crossover(string padre1, string padre2);
 
 void mutar(vector<string> siggen);
 
-vector<string> reemplazo(vector<string> poblacion,vector<string> hijos);
+vector<string> reemplazo(vector<string> poblacion,string hijoganador, vector<int> fitness);
 
 inline void lognewr(float score, float tiempo_encontrado){
 	cout << "Nueva calidad: " << score << endl;

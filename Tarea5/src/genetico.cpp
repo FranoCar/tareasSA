@@ -32,7 +32,10 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 		// Recombinar
 		vector<string> hijos = crossover(padre1,padre2);
 		// Generar nueva población
-		vector<string> siggen = reemplazo(poblacion,hijos);
+		string hijoganador = 	getValorObjetivo(omega,hijos[0],M,th) \
+								> getValorObjetivo(omega,hijos[1],M,th)? \
+								hijos[0] : hijos[1];
+		vector<string> siggen = reemplazo(poblacion,hijoganador,fitness);
 		//Mutar nueva generación
 		mutar(siggen);
 		// Evaluar Población
