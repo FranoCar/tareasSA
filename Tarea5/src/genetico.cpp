@@ -37,7 +37,7 @@ string AG(vector<string> omega, int M, int n_agentes, float crossover_rate,float
 			siggen = reemplazo(siggen,hijos,fitness);
 		}
 		// Mutar nueva generación
-		// mutar(siggen);
+		siggen = mutar(siggen, e);
 		// Evaluar Población
 		fitness = vector<int>();
 		for(string agente : siggen){

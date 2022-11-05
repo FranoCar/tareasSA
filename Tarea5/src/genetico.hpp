@@ -9,7 +9,7 @@ string seleccion(vector<string> poblacion,vector<int> fitness);
 
 vector<string> crossover(string padre1, string padre2);
 
-void mutar(vector<string> siggen);
+vector<string> mutar(vector<string> siggen, double rate);
 
 vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness);
 
