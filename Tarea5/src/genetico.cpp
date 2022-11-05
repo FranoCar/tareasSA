@@ -3,7 +3,7 @@
 
 using namespace std;
 
-string AG(vector<string> omega, int M, int n_agentes, float e, float th, float time){
+string AG(vector<string> omega, int M, int n_agentes, float crossover_rate,float e, float th, float time){
 	auto start = currentTime(); // Tiempo de inicio del algoritmo.
 	float tiempo_encontrado = 0;
 	bool newrecord = false;
@@ -29,15 +29,14 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 		// Selección}
 		string padre1 = seleccion(poblacion,fitness);
 		string padre2 = seleccion(poblacion,fitness);
-		// Recombinar
-		vector<string> hijos = crossover(padre1,padre2);
-		// Generar nueva población
-		string hijoganador = 	getValorObjetivo(omega,hijos[0],M,th) \
-								> getValorObjetivo(omega,hijos[1],M,th)? \
-								hijos[0] : hijos[1];
-		vector<string> siggen = reemplazo(poblacion,hijoganador,fitness);
-		//Mutar nueva generación
-		mutar(siggen);
+		for (int k = 0; k < poblacion.size()*crossover_rate/2; k++){
+			// Recombinar
+			vector<string> hijos = crossover(padre1,padre2);
+			// Generar nueva población
+			vector<string> siggen = reemplazo(poblacion,hijos,fitness);
+		}
+		// Mutar nueva generación
+		// mutar(siggen);
 		// Evaluar Población
 		fitness = vector<int>();
 		for(string agente : siggen){

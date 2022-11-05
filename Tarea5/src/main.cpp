@@ -64,7 +64,7 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
-	AG(omega,M,100,e,th,tiempo);
+	AG(omega,M,1000,0.2,e,th,tiempo);
 
 	return 0;
 }
