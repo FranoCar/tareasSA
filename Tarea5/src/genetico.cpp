@@ -27,9 +27,10 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 	lognewr((float)fitbf/N,tiempo_encontrado);
 	while( (timeDiff(start)/1000) < time){
 		// Selección}
-		vector<string> padres = seleccion(poblacion,fitness);
+		string padre1 = seleccion(poblacion,fitness);
+		string padre2 = seleccion(poblacion,fitness);
 		// Recombinar
-		vector<string> hijos = crossover(padres);
+		vector<string> hijos = crossover(padre1,padre2);
 		// Generar nueva población
 		vector<string> siggen = reemplazo(poblacion,hijos);
 		//Mutar nueva generación
@@ -41,13 +42,14 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 			if(curfit > fitbf){
 				solbf = agente;
 				fitbf = curfit;
-				newrecord = true;				
+				newrecord = true;
 			}
 			fitness.push_back(curfit);
 		}
 		if(newrecord){
 			tiempo_encontrado = timeDiff(start)/1000;
 			lognewr((float)fitbf/N,tiempo_encontrado);
+			newrecord = false;
 		}
 	}
 	return solbf;
