@@ -13,6 +13,12 @@ void mutar(vector<string> siggen);
 
 vector<string> reemplazo(vector<string> poblacion,vector<string> hijos);
 
+inline void lognewr(float score, float tiempo_encontrado){
+	cout << "Nueva calidad: " << score << endl;
+    cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
+    cout << "-----" << endl;
+}
+
 string AG(vector<string> omega, int M, int n_agentes, float e, float th, float time);
 
 #endif

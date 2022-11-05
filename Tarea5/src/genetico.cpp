@@ -24,9 +24,7 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 	}
 	int N = omega.size();
 	tiempo_encontrado = timeDiff(start)/1000;
-	cout << "Nueva calidad: " << (float)fitbf/N << endl;
-    cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
-    cout << "-----" << endl;
+	lognewr((float)fitbf/N,tiempo_encontrado);
 	while( (timeDiff(start)/1000) < time){
 		// Selección}
 		vector<string> padres = seleccion(poblacion,fitness);
@@ -49,9 +47,7 @@ string AG(vector<string> omega, int M, int n_agentes, float e, float th, float t
 		}
 		if(newrecord){
 			tiempo_encontrado = timeDiff(start)/1000;
-			cout << "Nueva calidad: " << (float)fitbf/N << endl;
-		    cout << "Encontrado en: " << tiempo_encontrado << "(s)" << endl;
-		    cout << "-----" << endl;
+			lognewr((float)fitbf/N,tiempo_encontrado);
 		}
 	}
 	return solbf;
