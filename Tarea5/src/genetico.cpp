@@ -29,11 +29,12 @@ string AG(vector<string> omega, int M, int n_agentes, float crossover_rate,float
 		// Selección}
 		string padre1 = seleccion(poblacion,fitness);
 		string padre2 = seleccion(poblacion,fitness);
+		vector<string> siggen = poblacion;
 		for (int k = 0; k < poblacion.size()*crossover_rate/2; k++){
 			// Recombinar
 			vector<string> hijos = crossover(padre1,padre2);
 			// Generar nueva población
-			vector<string> siggen = reemplazo(poblacion,hijos,fitness);
+			siggen = reemplazo(siggen,hijos,fitness);
 		}
 		// Mutar nueva generación
 		// mutar(siggen);
