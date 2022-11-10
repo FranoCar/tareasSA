@@ -1,13 +1,10 @@
-#include "genetico.hpp"
+#include "FFMS_Generator.hpp"
 
 using namespace std;
 
-vector<string> gen_poblacion(int n_agentes, int M){
-	vector<char> alfabeto{'A','C','G','T'};
-
+vector<string> FFMS_Generator::gen_poblacion(int n_agentes){
 	random_device rd;
 	mt19937 gen(rd());
-
 	uniform_int_distribution<size_t> r_pick(0,alfabeto.size()-1);
 
 	vector<string> poblacion;

@@ -1,5 +1,5 @@
 #include "funciones.h"
-#include "genetico.hpp"
+#include "FFMS_Generator/FFMS_Generator.hpp"
 
 using namespace std;
 
@@ -49,22 +49,23 @@ int main(int argc, char const *argv[]){
 		}
 	}
 	// Argumento opcional probabilidad epsilon
-	string e_arg = getArg("-e",argc,argv);
-	float e = 0.1;
-	if(!e_arg.empty()){
+	string mr_arg = getArg("-mr",argc,argv);
+	float mr = 0.1;
+	if(!mr_arg.empty()){
 		try{
-			e = stof(e_arg);
-			if(e > 1 or e < 0){
-				cout << "Entrada erronea en argumento -e" << endl;
+			mr = stof(mr_arg);
+			if(mr > 1 or mr < 0){
+				cout << "Entrada erronea en argumento -mr" << endl;
 				return 0;
 			}
 		}catch(...){
-			cout << "Entrada erronea en argumento -e" << endl;
+			cout << "Entrada erronea en argumento -mr" << endl;
 			return 0;
 		}
 	}
 
-	AG(omega,M,1000,0.2,e,th,tiempo);
+	auto generator = FFMS_Generator(omega,th);
+	generator.AG(1000,0.2,mr,tiempo);
 
 	return 0;
 }

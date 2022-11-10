@@ -28,24 +28,3 @@ vector<string> getData(string dir){
 	}
 	return data;
 }
-// Función para obtener la distancia humming entre 2 strings.
-int hummingDist(string A, string B, int M){
-	int val = 0;
-	for(int i = 0; i < M; i++){
-		if (A[i] != B[i]){
-			val++;
-		}
-	}
-	return val;
-}
-// Función para obtener el valor objetivo del problema FFMS, recibe el arreglo, el string solución, la longitud M y el threshold th.
-int getValorObjetivo(vector<string> omega, string solucion,int M, float th){
-	int count = 0;
-	for(string s: omega){
-		int hd = hummingDist(s,solucion,M);
-		if((float)hd/M >= th){
-			count++;
-		}
-	}
-	return count;
-}

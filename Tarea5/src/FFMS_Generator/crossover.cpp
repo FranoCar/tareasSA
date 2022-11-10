@@ -1,8 +1,8 @@
-#include "genetico.hpp"
+#include "FFMS_Generator.hpp"
 
 using namespace std;
 
-vector<string> crossover(string padre1, string padre2){
+vector<string> FFMS_Generator::crossover(string padre1, string padre2){
 	random_device rd;
 	mt19937 gen(rd());
 	

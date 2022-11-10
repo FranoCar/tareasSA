@@ -1,8 +1,8 @@
-#include "genetico.hpp"
+#include "FFMS_Generator.hpp"
 
 using namespace std;
 
-string seleccion(vector<string> poblacion, vector<int> fitness){
+string FFMS_Generator::seleccion(vector<string> poblacion, vector<int> fitness){
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<size_t> r_pick(0,poblacion.size()-1);

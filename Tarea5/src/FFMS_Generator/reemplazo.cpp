@@ -1,9 +1,9 @@
-#include "genetico.hpp"
+#include "FFMS_Generator.hpp"
 
 using namespace std;
 
 // Implementación de reemplazo steady-state
-vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness){
+vector<string> FFMS_Generator::reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness){
 	for(string hijo : hijos){
 		// Búsqueda del agente con menor fitness:
 		int peor = 0;
