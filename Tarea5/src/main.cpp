@@ -96,7 +96,7 @@ int main(int argc, char const *argv[]){
 
 	string cr_arg = getArg("-cr",argc,argv);
 	float crossover_rate = 0.2;
-	if(!e_arg.empty()){
+	if(!cr_arg.empty()){
 		try{
 			crossover_rate = stof(cr_arg);
 			if(crossover_rate > 1 or crossover_rate < 0){
