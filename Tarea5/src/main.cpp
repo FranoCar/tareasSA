@@ -64,8 +64,23 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
+	string e_arg = getArg("-e",argc,argv);
+	float e = 0.1;
+	if(!e_arg.empty()){
+		try{
+			e = stof(e_arg);
+			if(e > 1 or e < 0){
+				cout << "Entrada erronea en argumento -e" << endl;
+				return 0;
+			}
+		}catch(...){
+			cout << "Entrada erronea en argumento -e" << endl;
+			return 0;
+		}
+	}
+
 	auto generator = FFMS_Generator(omega,th);
-	generator.AG(1000,0.2,mr,tiempo);
+	generator.AG(1000,0.2,mr,e,tiempo);
 
 	return 0;
 }

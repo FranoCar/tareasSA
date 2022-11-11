@@ -3,12 +3,12 @@
 
 using namespace std;
 
-string FFMS_Generator::AG(int n_agentes, float crossover_rate,float mutation_rate, float time){
+string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_rate, float e, float time){
 	auto start = currentTime(); // Tiempo de inicio del algoritmo.
 	float tiempo_encontrado = 0;
 	bool newrecord = false;
 	// Generar Población
-	vector<string> poblacion = gen_poblacion(n_agentes);
+	vector<string> poblacion = gen_poblacion(n_agentes, e);
 	vector<int> fitness;
 	//Best so far
 	string solbf = poblacion[0];

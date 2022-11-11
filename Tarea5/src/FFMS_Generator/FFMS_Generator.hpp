@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <chrono>
+#include <map>
 
 using namespace std;
 
@@ -36,13 +37,14 @@ class FFMS_Generator{
 		vector<char> alfabeto{'A','C','G','T'};
 		vector<string> mutar(vector<string> siggen, float rate);
 		vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness);
-		vector<string> gen_poblacion(int n_agentes);
+		vector<string> gen_poblacion(int n_agentes, float e);
 		vector<string> crossover(string padre1, string padre2);
 		string seleccion(vector<string> poblacion, vector<int> fitness);
+		string greedy_probabilista(float e);
 		int getFitness(string solucion);
 	public:
 		FFMS_Generator(vector<string> _omega, float _th);
-		string AG(int n_agentes, float crossover_rate, float e, float time);
+		string AG(int n_agentes, float crossover_rate, float mutation_rate, float e, float time);
 };
 
 #endif
