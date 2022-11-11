@@ -24,6 +24,21 @@ int main(int argc, char const *argv[]){
 		cout << "Entrada erronea o nula en argumento -t" << endl;
 		return 0;
 	}
+
+	string na_arg = getArg("-na",argc,argv);
+	int n_agentes = 100;
+	if(!na_arg.empty()){
+		try{
+			n_agentes = stoi(na_arg);
+			if(n_agentes <= 0){
+				cout << "Entrada erronea o nula en argumento -na" << endl;
+				return 0;
+			}
+		}catch(...){
+			cout << "Entrada erronea o nula en argumento -na" << endl;
+			return 0;
+		}
+	}
     
 	//Set de secuencias.
 	vector<string> omega = getData(instancia);
@@ -79,8 +94,23 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
+	string cr_arg = getArg("-cr",argc,argv);
+	float crossover_rate = 0.2;
+	if(!e_arg.empty()){
+		try{
+			crossover_rate = stof(cr_arg);
+			if(crossover_rate > 1 or crossover_rate < 0){
+				cout << "Entrada erronea en argumento -cr" << endl;
+				return 0;
+			}
+		}catch(...){
+			cout << "Entrada erronea en argumento -cr" << endl;
+			return 0;
+		}
+	}
+
 	auto generator = FFMS_Generator(omega,th);
-	generator.AG(1000,0.2,mr,e,tiempo);
+	generator.AG(n_agentes,crossover_rate,mr,e,tiempo);
 
 	return 0;
 }
