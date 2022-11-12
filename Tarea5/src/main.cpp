@@ -69,7 +69,7 @@ int main(int argc, char const *argv[]){
 	if(!mr_arg.empty()){
 		try{
 			mr = stof(mr_arg);
-			if(mr > 1 or mr < 0){
+			if(mr > 10 or mr < 0){
 				cout << "Entrada erronea en argumento -mr" << endl;
 				return 0;
 			}

@@ -8,7 +8,7 @@ vector<string> FFMS_Generator::mutar(vector<string> siggen, float rate){
 	mt19937 gen(rd());
 	uniform_int_distribution<size_t> r_pick(0,alfabeto.size()-1);
 
-	uniform_real_distribution<> dis(0.0, 1.0);
+	uniform_real_distribution<> dis(0.0, 100.0);
 
 	for(int i = 0; i < siggen.size(); i++){
 		for(int j=0; j < M; j++){

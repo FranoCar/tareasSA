@@ -38,5 +38,5 @@ Donde:
 - `FFMS_Generator/mutacion.cpp`: Código para mutacion de soluciones.
 - `FFMS_Generator/seleccion.cpp`: Implementación de selección por torneo.
 - `FFMS_Generator/reemplazo.cpp`: Implementación de reemplazo steady-state.
-- `FFMS_Generator/crossover.cpp`: Implementación de crossover uniforme.
+- `FFMS_Generator/crossover.cpp`: Implementación de 2-point crossover
 - `FFMS_Generator/greedy_aleatorio.cpp`: Algoritmo greedy para la generación de población.
