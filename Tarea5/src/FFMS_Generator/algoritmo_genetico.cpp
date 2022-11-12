@@ -25,11 +25,11 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 	tiempo_encontrado = timeDiff(start)/1000;
 	lognewr((float)fitbf/N,tiempo_encontrado);
 	while( (timeDiff(start)/1000) < time){
-		// Selección
-		string padre1 = seleccion(poblacion,fitness);
-		string padre2 = seleccion(poblacion,fitness);
 		vector<string> siggen = poblacion;
 		for (int k = 0; k < poblacion.size()*crossover_rate/2; k++){
+			// Selección
+			string padre1 = seleccion(poblacion,fitness);
+			string padre2 = seleccion(poblacion,fitness);
 			// Recombinar
 			vector<string> hijos = crossover(padre1,padre2);
 			// Generar nueva población
@@ -53,6 +53,7 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 			lognewr((float)fitbf/N,tiempo_encontrado);
 			newrecord = false;
 		}
+		poblacion = siggen;
 	}
 	return solbf;
 }
