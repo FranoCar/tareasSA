@@ -10,16 +10,19 @@
 #include <map>
 #include <chrono>
 #include <array>
+#include <utility>
 
 using namespace std;
+
+struct Opt{
+	char const* name;
+	int type;
+	float l_limit;
+	float u_limit = -1;
+};
 
 string getArg(char const* val_esperado, int argc, char const *argv[]);
 
 vector<string> getData(string dir);
-
-int hummingDist(string A, string B, int M);
-
-int getValorObjetivo(vector<string> omega, string solucion,int M, float th);
-
 
 #endif

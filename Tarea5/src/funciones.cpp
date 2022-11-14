@@ -13,7 +13,6 @@ string getArg(char const* val_esperado, int argc, char const *argv[]){
 	}
 	return opcion;
 }
-
 //Función para leer el archivo de texto del dataset
 //Si no encuentra el archivo o hay un error retorna un vector vacío.
 vector<string> getData(string dir){
@@ -28,3 +27,4 @@ vector<string> getData(string dir){
 	}
 	return data;
 }
+

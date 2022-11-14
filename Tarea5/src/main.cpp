@@ -3,133 +3,81 @@
 
 using namespace std;
 
-
 int main(int argc, char const *argv[]){
-	// array<char const*,8> opt_args = {"-i","-t","-th","-na","-mr","-e","-cr","-elit"};
+	array<Opt,8> opt_args = {	
+	/*Instancia del dataset:*/	{{"-i", 0},
+	/*Tiempo de ejecución:	*/	{"-t", 2, 0.1},
+	/*Threshold de FFMSP:	*/	{"-th", 2, 0, 1},
+	/*Número de agentes:	*/	{"-na", 1, 1},
+	/*Probabilidad mutación:*/	{"-mr", 2, 0, 1},
+	/*Probabilidad epsilon: */	{"-e", 2, 0, 1},
+	/*Probabilidad crossover*/	{"-cr", 2, 0, 1},
+	/*Porcentaje elitismo:	*/	{"-elit", 2, 0, 1}}
+							};
+	// Mapa de valores, inicializado con valores por defecto para los argumentos opcionales.
+	map<char const*,float> opt_val = {
+										{"-th",0.8},
+										{"-na",100},
+										{"-e",0.1},
+										{"-mr",0.1},
+										{"-cr",0.2},
+										{"-elit",0.2}
+									};
+	map<char const*,string> opt_strings;
 
-	// Nombre de la instancia a abrir.
-	string instancia = getArg("-i",argc,argv);
-	if (instancia.empty()){
-		cout << "Entrada erronea o nula en argumento -i" << endl;
-		return 0;
-	}
-	instancia = "dataset/" + instancia + ".txt";
-
-	// Tiempo en segundos para limitar la ejecución de GRASP.
-    float tiempo;
-	try{
-		tiempo = stof(getArg("-t",argc,argv));
-		if(tiempo <= 0){
-			cout << "Entrada erronea o nula en argumento -t" << endl;
-			return 0;
-		}
-	}catch(...){
-		cout << "Entrada erronea o nula en argumento -t" << endl;
-		return 0;
-	}
-
-	string na_arg = getArg("-na",argc,argv);
-	int n_agentes = 100;
-	if(!na_arg.empty()){
-		try{
-			n_agentes = stoi(na_arg);
-			if(n_agentes <= 0){
-				cout << "Entrada erronea o nula en argumento -na" << endl;
+	for(auto& opt : opt_args){
+		string raw_arg = getArg(opt.name,argc,argv);
+		if ( raw_arg.empty() ){
+			if( opt_val.find(opt.name) == opt_val.end() && opt_strings.find(opt.name) == opt_strings.end() ){
+				cout << "Entrada erronea o nula en argumento "<< opt.name << endl;
 				return 0;
 			}
-		}catch(...){
-			cout << "Entrada erronea o nula en argumento -na" << endl;
-			return 0;
+			continue;
+		}
+		switch(opt.type){
+			case 0:
+				opt_strings[opt.name] = raw_arg;
+				break;
+			case 1:
+				try{
+					stoi(raw_arg);
+				}catch(...){
+					cout << "Entrada erronea o nula en argumento "<< opt.name << endl;
+					return 0;
+				}
+			case 2:
+				float float_arg;
+				try{
+					float_arg = stof(raw_arg);
+				}catch(...){
+					cout << "Entrada erronea o nula en argumento "<< opt.name << endl;
+					return 0;
+				}
+				if(float_arg < opt.l_limit || (opt.u_limit != -1 && float_arg > opt.u_limit)){
+					cout << "Entrada erronea o nula en argumento "<< opt.name << endl;
+					return 0;
+				}
+				opt_val[opt.name] = float_arg;
+				break;
 		}
 	}
-    
-	//Set de secuencias.
+	
+	string instancia = "dataset/" + opt_strings["-i"] + ".txt";
 	vector<string> omega = getData(instancia);
 	if(omega.empty()){
 		cout << "Archivo no se puede leer o no existe" << endl;
 		return 0;
 	}
-	int M = omega[0].length();	//Longitud M de cada secuencia.
-
-	// Argumento opcional threshold.
-	string th_arg = getArg("-th",argc,argv);
-	float th = 0.8;
-	if(!th_arg.empty()){
-		try{
-			th = stof(th_arg);
-			if(th > 1 or th < 0){
-				cout << "Entrada erronea o nula en argumento -th" << endl;
-				return 0;
-			}
-		}catch(...){
-			cout << "Entrada erronea o nula en argumento -th" << endl;
-			return 0;
-		}
-	}
-	// Argumento opcional probabilidad epsilon
-	string mr_arg = getArg("-mr",argc,argv);
-	float mr = 0.1;
-	if(!mr_arg.empty()){
-		try{
-			mr = stof(mr_arg);
-			if(mr > 10 or mr < 0){
-				cout << "Entrada erronea en argumento -mr" << endl;
-				return 0;
-			}
-		}catch(...){
-			cout << "Entrada erronea en argumento -mr" << endl;
-			return 0;
-		}
-	}
-
-	string e_arg = getArg("-e",argc,argv);
-	float e = 0.1;
-	if(!e_arg.empty()){
-		try{
-			e = stof(e_arg);
-			if(e > 1 or e < 0){
-				cout << "Entrada erronea en argumento -e" << endl;
-				return 0;
-			}
-		}catch(...){
-			cout << "Entrada erronea en argumento -e" << endl;
-			return 0;
-		}
-	}
-
-	string cr_arg = getArg("-cr",argc,argv);
-	float crossover_rate = 0.2;
-	if(!cr_arg.empty()){
-		try{
-			crossover_rate = stof(cr_arg);
-			if(crossover_rate > 1 or crossover_rate < 0){
-				cout << "Entrada erronea en argumento -cr" << endl;
-				return 0;
-			}
-		}catch(...){
-			cout << "Entrada erronea en argumento -cr" << endl;
-			return 0;
-		}
-	}
-
-	string elit_arg = getArg("-elit",argc,argv);
-	float elitism_rate = 0.2;
-	if(!elit_arg.empty()){
-		try{
-			elitism_rate = stof(elit_arg);
-			if(elitism_rate > 1 or elitism_rate < 0){
-				cout << "Entrada erronea en argumento -elit" << endl;
-				return 0;
-			}
-		}catch(...){
-			cout << "Entrada erronea en argumento -elit" << endl;
-			return 0;
-		}
-	}
-
+	float tiempo = opt_val["-t"];
+	float th = opt_val["-th"];
+	int n_agentes = (int) opt_val["-na"];
+	float mutation_rate = opt_val["-mr"];
+	float epsilon = opt_val["-e"];
+	float crossover_rate = opt_val["-cr"];
+	float elitism_rate = opt_val["-elit"];
 
 	auto generator = FFMS_Generator(omega,th);
-	generator.AG(n_agentes,crossover_rate,mr,e,tiempo,elitism_rate);
+	generator.AG(n_agentes,crossover_rate,mutation_rate,epsilon,tiempo,elitism_rate);
 
 	return 0;
 }
