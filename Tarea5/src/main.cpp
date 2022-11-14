@@ -18,7 +18,7 @@ int main(int argc, char const *argv[]){
 	map<char const*,float> opt_val = {
 										{"-th",0.8},
 										{"-na",100},
-										{"-e",0.1},
+										{"-e",0.05},
 										{"-mr",0.1},
 										{"-cr",0.2},
 										{"-elit",0.2}
