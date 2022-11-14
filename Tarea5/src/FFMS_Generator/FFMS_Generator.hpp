@@ -36,7 +36,7 @@ class FFMS_Generator{
 		int M;
 		float th;
 		vector<char> alfabeto{'A','C','G','T'};
-		vector<string> mutar(vector<string> siggen, float rate);
+		vector<string> mutar(vector<string> siggen, float rate, vector<int> fitness, float elit);
 		vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness, float elit);
 		vector<string> gen_poblacion(int n_agentes, float e);
 		vector<string> crossover(string padre1, string padre2);

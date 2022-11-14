@@ -3,7 +3,10 @@
 
 using namespace std;
 
+
 int main(int argc, char const *argv[]){
+	// array<char const*,8> opt_args = {"-i","-t","-th","-na","-mr","-e","-cr","-elit"};
+
 	// Nombre de la instancia a abrir.
 	string instancia = getArg("-i",argc,argv);
 	if (instancia.empty()){

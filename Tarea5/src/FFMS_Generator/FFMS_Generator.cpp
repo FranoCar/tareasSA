@@ -1,13 +1,11 @@
 
 #include "FFMS_Generator.hpp"
 
-// Función para obtener la distancia humming entre 2 strings.
-int hummingDist(string A, string B, int M){
+// Función para obtener la distancia hamming entre 2 strings.
+int hammingDist(string A, string B, int M){
 	int val = 0;
 	for(int i = 0; i < M; i++){
-		if (A[i] != B[i]){
-			val++;
-		}
+		if (A[i] != B[i]) val++;
 	}
 	return val;
 }
@@ -15,7 +13,7 @@ int hummingDist(string A, string B, int M){
 int FFMS_Generator::getFitness(string solucion){
 	int count = 0;
 	for(string s: omega){
-		int hd = hummingDist(s,solucion,M);
+		int hd = hammingDist(s,solucion,M);
 		if((float)hd/M >= th){
 			count++;
 		}

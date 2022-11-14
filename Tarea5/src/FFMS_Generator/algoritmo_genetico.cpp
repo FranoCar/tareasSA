@@ -38,7 +38,7 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 			siggen = reemplazo(siggen,hijos,fitness, elitism);
 		}
 		// Mutar nueva generación
-		siggen = mutar(siggen, mutation_rate);
+		siggen = mutar(siggen, mutation_rate,fitness, elitism);
 		// Evaluar Población
 		fitness = vector<int>();
 		for(string agente : siggen){
