@@ -47,7 +47,7 @@ int main(int argc, char const *argv[]){
 	}
 	// Argumento opcional probabilidad epsilon
 	string e_arg = getArg("-e",argc,argv);
-	float e = 0.1;
+	float e = 0.05;
 	if(!e_arg.empty()){
 		try{
 			e = stof(e_arg);
