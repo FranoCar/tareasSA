@@ -16,7 +16,6 @@ int main(int argc, char const *argv[]){
 							};
 	// Mapa de valores, inicializado con valores por defecto para los argumentos opcionales.
 	map<char const*,float> opt_val = {
-										{"-th",0.8},
 										{"-na",100},
 										{"-e",0.05},
 										{"-mr",0.1},

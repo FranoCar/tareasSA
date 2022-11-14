@@ -19,13 +19,13 @@ Donde:
 
 **-t 20**: Indica el tiempo de ejecución del problema (en el ejemplo, `tiempo = 20 segundos`)
 
-**-th 0.75**: Indica cuál es el threshold para dicha ejecución del problema (en el ejemplo, `threshold = 0.75`), th tiene que ser un valor entre 0 y 1, si no se indica este parámetro por defecto tiene un valor de 0.8.
+**-th 0.75**: Indica cuál es el threshold para dicha ejecución del problema (en el ejemplo, `threshold = 0.75`), th tiene que ser un valor entre 0 y 1.
 
 **-mr 0.1**: Indica el mutation rate, es decir qué tan seguido sucede una mutación(en el ejemplo, `mutation rate = 0.1`), tiene que ser un valor entre 0 y 1, tiene un valor por defecto de 0.1.
 
 **-cr**: Indica el crossover rate, es decir qué porcentaje de la población genera hijos por cada generación (en el ejemplo `crossover rate = 0.2`), tiene que ser un valor entre 0 y 1 y tiene un valor por defecto de 0.1.
 
-**-e**: Indica el valor epsilon para controlar el nivel de aleatoriedad de la población generada en el algoritmo genético (en el ejemplo `epsilon = 0.1`), tiene que ser un valor entre 0 y 1 y por defecto tiene un valor de 0.1.
+**-e**: Indica el valor epsilon para controlar el nivel de aleatoriedad de la población generada en el algoritmo genético (en el ejemplo `epsilon = 0.05`), tiene que ser un valor entre 0 y 1 y por defecto tiene un valor de 0.05.
 
 **-na**: Indica la cantidad de agentes de cada generación (en el ejemplo `número de agentes = 100`), tiene que ser un valor entero positivo y por defecto tiene un valor de 100.
 
