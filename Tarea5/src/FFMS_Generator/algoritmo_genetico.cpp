@@ -3,7 +3,7 @@
 
 using namespace std;
 
-string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_rate, float e, float time){
+string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_rate, float e, float time, float elitism){
 	auto start = currentTime(); // Tiempo de inicio del algoritmo.
 	float tiempo_encontrado = 0;
 	bool newrecord = false;
@@ -33,8 +33,9 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 			string padre2 = seleccion(poblacion,fitness);
 			// Recombinar
 			vector<string> hijos = crossover(padre1,padre2);
+
 			// Generar nueva población
-			siggen = reemplazo(siggen,hijos,fitness);
+			siggen = reemplazo(siggen,hijos,fitness, elitism);
 		}
 		// Mutar nueva generación
 		siggen = mutar(siggen, mutation_rate);

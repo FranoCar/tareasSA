@@ -10,7 +10,7 @@ admin@admin:~/tareasSA/Tarea5$ g++ src/*.cpp src/FFMS_Generator/*.cpp -o AG
 Para ejecutar, utilizar la siguiente sintaxis:
 
 ```console
-admin@admin:~/tareasSA/Tarea5$ ./AG -i XXX-YYY-ZZZ -t 20 -th 0.75 -mr 0.1 -cr 0.2 -e 0.1 -na 100
+admin@admin:~/tareasSA/Tarea5$ ./AG -i XXX-YYY-ZZZ -t 20 -th 0.75 -mr 0.1 -cr 0.2 -e 0.1 -na 100 -elit 0.2
 ```
 
 Donde:
@@ -28,6 +28,8 @@ Donde:
 **-e**: Indica el valor epsilon para controlar el nivel de aleatoriedad de la población generada en el algoritmo genético (en el ejemplo `epsilon = 0.1`), tiene que ser un valor entre 0 y 1 y por defecto tiene un valor de 0.1.
 
 **-na**: Indica la cantidad de agentes de cada generación (en el ejemplo `número de agentes = 100`), tiene que ser un valor entero positivo y por defecto tiene un valor de 100.
+
+**-elit**: Indica el porcentaje de elitismo para el proceso de reemplazo. Tiene que ser un valor decimal entre 0 y 1 (en el ejemplo `elitismo = 0.2`, que es el 20% de elitismo), y por defecto tiene un valor de 0.2.
 
 ## Archivos incluidos:
 - `funciones.cpp`: Funciones generales de entrada y salida.

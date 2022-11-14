@@ -109,8 +109,24 @@ int main(int argc, char const *argv[]){
 		}
 	}
 
+	string elit_arg = getArg("-elit",argc,argv);
+	float elitism_rate = 0.2;
+	if(!elit_arg.empty()){
+		try{
+			elitism_rate = stof(elit_arg);
+			if(elitism_rate > 1 or elitism_rate < 0){
+				cout << "Entrada erronea en argumento -elit" << endl;
+				return 0;
+			}
+		}catch(...){
+			cout << "Entrada erronea en argumento -elit" << endl;
+			return 0;
+		}
+	}
+
+
 	auto generator = FFMS_Generator(omega,th);
-	generator.AG(n_agentes,crossover_rate,mr,e,tiempo);
+	generator.AG(n_agentes,crossover_rate,mr,e,tiempo,elitism_rate);
 
 	return 0;
 }
