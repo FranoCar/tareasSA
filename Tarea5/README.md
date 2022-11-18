@@ -1,5 +1,6 @@
 # Tarea 5: AG para FFMSP
 
+Implementación de algoritmo genético para el problema Far From Most String.
 
 Para compilar, usar el compilador de c++:
 
@@ -36,9 +37,4 @@ Donde:
 - `main.cpp`: Código fuente principal de ejecución y manejo de entrada
 - `FFMS_Generator/FFMS_Generator.hpp`: Clase para manejo de variables del problema.
 - `FFMS_Generator/algoritmo_genetico.cpp`: Implementación de algoritmo genético.
-- `FFMS_Generator/generacion_poblacion.cpp`: Código para generación de población inicial.
-- `FFMS_Generator/mutacion.cpp`: Código para mutacion de soluciones.
-- `FFMS_Generator/seleccion.cpp`: Implementación de selección por torneo.
-- `FFMS_Generator/reemplazo.cpp`: Implementación de reemplazo steady-state.
-- `FFMS_Generator/crossover.cpp`: Implementación de 2-point crossover
 - `FFMS_Generator/greedy_aleatorio.cpp`: Algoritmo greedy para la generación de población.
