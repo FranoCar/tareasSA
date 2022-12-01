@@ -11,7 +11,7 @@ vector<string> FFMS_Generator::gen_poblacion(int n_agentes, float e){
 	return poblacion;
 }
 
-string FFMS_Generator::seleccion(vector<string> poblacion, vector<int> fitness){
+string FFMS_Generator::seleccion(vector<string> poblacion, vector<float> fitness){
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<size_t> r_pick(0,poblacion.size()-1);
@@ -68,10 +68,10 @@ vector<string> FFMS_Generator::crossover(string padre1, string padre2){
 }
 
 // Implementación de reemplazo steady-state
-vector<string> FFMS_Generator::reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness, float elit){
-	vector<int> fitAux = fitness;
+vector<string> FFMS_Generator::reemplazo(vector<string> poblacion,vector<string> hijos, vector<float> fitness, float elit){
+	vector<float> fitAux = fitness;
 	sort(fitAux.begin(),fitAux.end());
-	int umbralElite = fitAux[(fitAux.size()-1)*(1-elit)]; //elitismo
+	float umbralElite = fitAux[(fitAux.size()-1)*(1-elit)]; //elitismo
 
 	for(string hijo : hijos){
 		// Búsqueda del agente con menor fitness:
@@ -89,16 +89,16 @@ vector<string> FFMS_Generator::reemplazo(vector<string> poblacion,vector<string>
 	return poblacion;
 }
 
-vector<string> FFMS_Generator::mutar(vector<string> siggen, float rate, vector<int> fitness, float elit){
+vector<string> FFMS_Generator::mutar(vector<string> siggen, float rate, vector<float> fitness, float elit){
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_real_distribution<> dis(0.0, 1.0);
 	uniform_int_distribution<size_t> r_pick_alfabeto(0,alfabeto.size()-1);
 	uniform_int_distribution<size_t> r_pick_letra(0,M-1);
 
-	vector<int> fitAux = fitness;
+	vector<float> fitAux = fitness;
 	sort(fitAux.begin(),fitAux.end());
-	int umbralElite = fitAux[(fitAux.size()-1)*(1-elit)]; //elitismo
+	float umbralElite = fitAux[(fitAux.size()-1)*(1-elit)]; //elitismo
 
 	for(int i = 0; i < siggen.size(); i++){
 		if(fitness[i] > fitness[umbralElite]) continue;
@@ -119,20 +119,21 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 	bool newrecord = false;
 	// Generar Población
 	vector<string> poblacion = gen_poblacion(n_agentes, e);
-	vector<int> fitness;
+	vector<float> fitness;
 	//Best so far
 	string solbf = poblacion[0];
-	int fitbf = getFitness(solbf);
+	float fitbf = getFitness(solbf);
 	// Evaluar Población
 	for(string agente : poblacion){
-		int curfit = getFitness(agente);
+		float curfit = getFitness(agente);
 		if (curfit > fitbf){
 			solbf = agente;
 			fitbf = curfit;
 		}
 		fitness.push_back(curfit);
 	}
-	lognewr((float)fitbf/N,timeDiff(start)/1000);
+	lognewr(fitbf,timeDiff(start)/1000);
+	cout << "valor objetivo: " << getScore(solbf) << endl;
 	while( (timeDiff(start)/1000) < time){
 		vector<string> siggen = poblacion;
 		for (int k = 0; k < poblacion.size()*crossover_rate/2; k++){
@@ -149,16 +150,15 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 		// Mutar nueva generación
 		siggen = mutar(siggen, mutation_rate,fitness, elitism);
 		// MEMES
-		cout << "buscando.." << endl;
 		for(int i = 0; i < siggen.size(); i++){
+			cout << "buscando " << i << endl;
 			siggen[i] = busqueda_local(siggen[i]);
 		}
-		cout << " OK!" << endl;
 
 		// Evaluar Población
-		fitness = vector<int>();
+		fitness = vector<float>();
 		for(string agente : siggen){
-			int curfit = getFitness(agente);
+			float curfit = getFitness(agente);
 			if(curfit > fitbf){
 				solbf = agente;
 				fitbf = curfit;
@@ -167,7 +167,8 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 			fitness.push_back(curfit);
 		}
 		if(newrecord){
-			lognewr((float)fitbf/N,timeDiff(start)/1000);
+			lognewr(fitbf,timeDiff(start)/1000);
+			cout << "valor objetivo: " << getScore(solbf) << endl;
 			newrecord = false;
 		}
 		poblacion = siggen;

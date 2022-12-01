@@ -8,6 +8,7 @@
 #include <string>
 #include <chrono>
 #include <map>
+#include <cmath>
 
 using namespace std;
 
@@ -35,16 +36,20 @@ class FFMS_Generator{
 		int N;
 		int M;
 		float th;
+		vector<vector<int>> T;
 		vector<char> alfabeto{'A','C','G','T'};
-		vector<string> mutar(vector<string> siggen, float rate, vector<int> fitness, float elit);
-		vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<int> fitness, float elit);
+		vector<string> mutar(vector<string> siggen, float rate, vector<float> fitness, float elit);
+		vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<float> fitness, float elit);
 		vector<string> gen_poblacion(int n_agentes, float e);
 		vector<string> crossover(string padre1, string padre2);
-		string seleccion(vector<string> poblacion, vector<int> fitness);
+		string seleccion(vector<string> poblacion, vector<float> fitness);
 		string greedy_probabilista(float e);
 		string siguiente_vecino(vector<string> vecindad, string solucion);
 		string busqueda_local(string sol);
-		int getFitness(string solucion);
+		void generateT();
+		int getScore(string solucion);
+		float getFitness(string solucion);
+
 	public:
 		FFMS_Generator(vector<string> _omega, float _th);
 		string AG(int n_agentes, float crossover_rate, float mutation_rate, float e, float time, float elitism);

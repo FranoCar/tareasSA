@@ -23,7 +23,7 @@ vector<string> vecindad(string solucion){
 
 string FFMS_Generator::siguiente_vecino(vector<string> vecindad, string solucion){
     // Valor objetivo del string solucion entregado
-    int base = getFitness(solucion);
+    float base = getFitness(solucion);
     // Iteramos en la vecindad hasta encontrar un string mejor
     // que la solución actual.
     for (string vecino : vecindad){
