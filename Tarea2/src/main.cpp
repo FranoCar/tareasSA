@@ -7,7 +7,7 @@ int main(int argc, char const *argv[]){
 		cout << "Entrada erronea o nula en argumento -i" << endl;
 		return 0;
 	}
-	instancia = "dataset/" + instancia + ".txt";
+	instancia = "../dataset/" + instancia + ".txt";
 
 	// Tiempo en segundos para limitar la ejecución de GRASP.
     float tiempo;
