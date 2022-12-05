@@ -137,7 +137,6 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 	while( (timeDiff(start)/1000) < time){
 		vector<string> siggen = poblacion;
 		for (int k = 0; k < poblacion.size()*crossover_rate/2; k++){
-			//cerr << "k: " << k <<endl;
 			// Selección
 			string padre1 = seleccion(poblacion,fitness);
 			string padre2 = seleccion(poblacion,fitness);

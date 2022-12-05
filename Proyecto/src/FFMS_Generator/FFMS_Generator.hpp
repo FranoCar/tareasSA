@@ -36,7 +36,7 @@ class FFMS_Generator{
 		int N;
 		int M;
 		float th;
-		vector<vector<int>> T;
+		vector<vector<double>> T;
 		vector<char> alfabeto{'A','C','G','T'};
 		vector<string> mutar(vector<string> siggen, float rate, vector<float> fitness, float elit);
 		vector<string> reemplazo(vector<string> poblacion,vector<string> hijos, vector<float> fitness, float elit);

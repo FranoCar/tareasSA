@@ -21,7 +21,7 @@ int FFMS_Generator::getScore(string solucion){
 }
 void FFMS_Generator::generateT(){
 	for(int i = 0; i < M; i++){
-		vector<int> row(M);
+		vector<double> row(M);
 		T.push_back(row);
 	}
 	T[0][0] = 1;
@@ -30,39 +30,41 @@ void FFMS_Generator::generateT(){
 	}
 	for(int L = 1; L < M; L++){
 		for(int k = 0; k < M; k++){
-			T[L][k] = 	T[L-1][k-1] \
+			T[L][k] = 	T[L-1][k-1] 					\
 						+ (alfabeto.size()-2)*T[L-1][k] \
 						+ T[L-1][k+1];
 		}
-	} 
+	}
+	for(int L = 0; L < M; L++){
+		for(int k = 0; k < M; k++){
+			T[L][k] = T[L][k] / pow(alfabeto.size(),L);
+		}
+	}
 }
+
 float FFMS_Generator::getFitness(string solucion){
 	int near = 0;
-	vector<float> distances(N);
-	vector<float> costs(N);
+	vector<double> distances(N);
+	vector<double> costs(N);
 	for(int i = 0; i < N; i++){
 		distances[i] = hammingDist(solucion, omega[i], M);
 		costs[i] = M - distances[i];
-		if((float)distances[i]/M < th){
-			near += 1;
-		}
+		near += (int)((double)distances[i]/M < th);
 	}
 	int f = N - near;
-	float GpC = 0;
+	double GpC = 0;
 	if( near > 0 ){
-		float sumGpC = 0;
+		double sumGpC = 0;
 		for(int i = 0; i < N; i++){
-			if((float)distances[i]/M >= th){
-				continue;
-			}
-			float gain = 1;
+			if((double)distances[i]/M >= th)continue;
+			
+			double gain = 1;
 			for (int j = 0; j < N; j++){
-				if(i == j){
-					continue;
-				}
-				float sumP = 0;
+				if(i == j) continue;
+				
+				double sumP = 0;
 				for(int k = j; k < i; k++){
-					sumP += (float)T[costs[i]][costs[k]]/pow(alfabeto.size(),costs[i]);
+					sumP += T[costs[i]][costs[k]];
 				}
 				gain += sumP;
 			}
