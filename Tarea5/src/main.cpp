@@ -61,7 +61,7 @@ int main(int argc, char const *argv[]){
 		}
 	}
 	
-	string instancia = "dataset/" + opt_strings["-i"] + ".txt";
+	string instancia = "../dataset/" + opt_strings["-i"] + ".txt";
 	vector<string> omega = getData(instancia);
 	if(omega.empty()){
 		cout << "Archivo no se puede leer o no existe" << endl;
