@@ -35,8 +35,8 @@ vector<string> FFMS_Generator::crossover(string padre1, string padre2){
 	
 	// UNIFORM CROSSOVER
 
-	/*
-	uniform_int_distribution<> p(0.0,1.0);
+	
+	/*uniform_int_distribution<> p(0.0,1.0);
 
 	for(int i = 0; i < padre1.size(); i++){
 		if(p(gen) < 0.5){
@@ -44,8 +44,8 @@ vector<string> FFMS_Generator::crossover(string padre1, string padre2){
 			padre1[i] = padre2[i];
 			padre2[i] = aux; 
 		}
-	}
-	*/
+	}*/
+	
 
 	// 2-POINT CROSSOVER
 
@@ -136,23 +136,28 @@ string FFMS_Generator::AG(int n_agentes, float crossover_rate, float mutation_ra
 	cout << "valor objetivo: " << getScore(solbf) << endl;
 	while( (timeDiff(start)/1000) < time){
 		vector<string> siggen = poblacion;
+		vector<string> hijos;
 		for (int k = 0; k < poblacion.size()*crossover_rate/2; k++){
 			// Selección
 			string padre1 = seleccion(poblacion,fitness);
 			string padre2 = seleccion(poblacion,fitness);
 			// Recombinar
-			vector<string> hijos = crossover(padre1,padre2);
-
-			// Generar nueva población
-			siggen = reemplazo(siggen,hijos,fitness, elitism);
+			for(string& hijo : crossover(padre1,padre2)){
+				hijos.push_back(hijo);
+			}
 		}
-		// Mutar nueva generación
-		siggen = mutar(siggen, mutation_rate,fitness, elitism);
+		hijos = mutar(hijos, mutation_rate,fitness, 0);
+		//siggen = mutar(siggen, mutation_rate,fitness, elitism);
 		// MEMES
-		for(int i = 0; i < siggen.size(); i++){
-			cout << "buscando " << i << endl;
-			siggen[i] = busqueda_local(siggen[i]);
+		
+		int i = 0;
+		for(string& hijo : hijos){
+			cout << "buscando " << i << endl; i++;
+			hijo = busqueda_local(hijo);
 		}
+		// Generar nueva población
+		siggen = reemplazo(siggen,hijos,fitness, elitism);
+		// Mutar nueva generación
 
 		// Evaluar Población
 		fitness = vector<float>();
